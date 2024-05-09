@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card mt-5 custom-card">
+        <div class="card-header custom-card-header">Register Here</div>
+        <div class="card-body">
+          <form
+            *ngIf="registerForm"
+            [formGroup]="registerForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                formControlName="username"
+                class="form-control"
+                id="username"
+                placeholder="Enter username"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('username')?.value === '' &&
+                  registerForm.get('username')?.touched
+                "
+                class="text-danger"
+              >
+                Username is required.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.get('username')?.value !== '' &&
+                  (registerForm.get('username')?.value.length < 5 ||
+                    registerForm.get('username')?.value.length > 10)
+                "
+                class="text-danger"
+              >
+                Username must be between 5 and 10 characters.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control"
+                id="password"
+                placeholder="Enter password"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('password')?.value === '' &&
+                  registerForm.get('password')?.touched
+                "
+                class="text-danger"
+              >
+                Password is required.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.get('password')?.value !== '' &&
+                  (registerForm.get('password')?.value.length < 5 ||
+                    registerForm.get('password')?.value.length > 12)
+                "
+                class="text-danger"
+              >
+                Password must be between 5 and 12 characters.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control"
+                id="email"
+                placeholder="Enter email"
+              />
+              <div
+                *ngIf="
+                  registerForm.get('email')?.value === '' &&
+                  registerForm.get('email')?.touched
+                "
+                class="text-danger"
+              >
+                Email is required.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.get('email')?.value !== '' &&
+                  !registerForm
+                    .get('email')
+                    ?.value.match(
+                      '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'
+                    )
+                "
+                class="text-danger"
+              >
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select formControlName="role" class="form-select" id="role">
+                <option *ngFor="let role of roles" [value]="role">
+                  {{ role }}
+                </option>
+              </select>
+            </div>
+            <div
+              class="mb-3"
+              *ngIf="registerForm.get('role')?.value === 'admin'"
+            >
+              <label for="secretKey" class="form-label">Secret Key</label>
+              <input
+                type="password"
+                formControlName="secretKey"
+                class="form-control"
+                id="secretKey"
+                placeholder="Enter secret key"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary custom-btn">
+              Register
+            </button>
+          </form>
+          <!-- Error message -->
+          <div *ngIf="successMsg" [@slideInOut] class="success-message">{{ successMsg }}</div>
+          <div *ngIf="errorMsg" [@slideInOut] class="error-message">{{ errorMsg }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

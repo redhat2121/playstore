@@ -1,0 +1,115 @@
+<!-- Main content area -->
+<div class="col-md-12">
+  <h2 class="text-center mb-5">User Dashboard</h2>
+
+  <!-- Search and filter section -->
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control mb-2"
+      [(ngModel)]="searchQuery"
+      (input)="filterApplications()"
+      placeholder="Search applications..."
+    />
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-primary" (click)="filterApplications()">
+        Search
+      </button>
+      <button class="btn btn-secondary" (click)="resetSearch()">Reset</button>
+    </div>
+  </div>
+
+  <!-- Display applications -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let application of filteredApplications">
+      <div class="card h-100 shadow">
+        <div class="card-body">
+          <h5 class="card-title">{{ application.name }}</h5>
+          <p class="card-text">{{ application.description }}</p>
+          <button
+            class="btn btn-success mt-3 btn-block"
+            (click)="onSelectApplication(application)"
+          >
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected application details -->
+  <div *ngIf="selectedApplication" class="mt-5 selected-application">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">{{ selectedApplication.name }}</h3>
+        <p class="card-text">{{ selectedApplication.description }}</p>
+        <p class="card-text">Version: {{ selectedApplication.version }}</p>
+        <p class="card-text">Genre: {{ selectedApplication.genre }}</p>
+        <p class="card-text">
+          Release Date: {{ selectedApplication.release_date }}
+        </p>
+        <div class="comment-section">
+          <input
+            type="text"
+            class="form-control mb-2"
+            [(ngModel)]="comment"
+            placeholder="Add a comment..."
+          />
+          <select [(ngModel)]="rating" class="form-select mb-2">
+            <option value="0">Select rating</option>
+            <option *ngFor="let i of [1, 2, 3, 4, 5]" [value]="i">
+              {{ i }}
+            </option>
+          </select>
+          <button class="btn btn-primary" (click)="onSubmitCommentOrRating()">
+            Submit
+          </button>
+        </div>
+
+        <div class="action-buttons d-flex justify-content-between">
+          <button class="btn btn-primary mt-3"
+            mat-raised-button
+            (click)="onInstallApplication(selectedApplication._id)"
+          >
+            Install Application
+          </button>
+          <mat-spinner *ngIf="loading" diameter="30"></mat-spinner>
+          <button
+            class="btn btn-secondary mt-3"
+            (click)="toggleCommentsAndRatings()"
+          >
+            Show Reviews
+          </button>
+        </div>
+      </div>
+    </div>
+
+     <!-- Display reviews -->
+     <div *ngIf="showingReviews && selectedApplication.reviews && selectedApplication.reviews.length > 0" class="mt-4">
+      <div class="reviews-container">
+        <div class="review-card" *ngFor="let review of selectedApplication.reviews">
+          <div class="review-header">
+            <h4>Reviews</h4>
+          </div>
+          <div class="review-body">
+            <p class="review-text" *ngIf="review.type === 'comment'">
+              <b>Comment:</b> {{ review.comment }}
+            </p>
+            <p class="review-text" *ngIf="review.type === 'rating'">
+              <b>Rating:</b> {{ review.rating }}
+            </p>
+          </div>
+          <div class="review-footer" *ngIf="isCommentOwner(review.uuid)">
+            <button class="btn btn-sm btn-outline-danger" (click)="onDeleteReview(review.uuid)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="logout-btn-container">
+  <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+</div>

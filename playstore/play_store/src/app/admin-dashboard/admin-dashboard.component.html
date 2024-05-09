@@ -1,0 +1,332 @@
+<div class="container-fluid mt-4">
+  <!-- Error message -->
+  <div *ngIf="errorMsg" class="alert alert-danger snackbar-error" role="alert">
+    {{ errorMsg }}
+  </div>
+  <!-- Success message -->
+  <div
+    *ngIf="successMsg"
+    class="alert alert-success snackbar-success"
+    role="alert"
+  >
+    {{ successMsg }}
+  </div>
+  <h2 class="custom-header">Admin Dashboard</h2>
+  <!-- Toggle Buttons -->
+  <div class="btn-group mb-4">
+    <button class="btn btn-primary" (click)="toggleUserCrud()">
+      User CRUD
+    </button>
+    <button class="btn btn-primary" (click)="toggleAppCrud()">App CRUD</button>
+  </div>
+  <!-- Users Table -->
+  <div *ngIf="showUserCrud" class="custom-user-crud">
+    <h3 class="mt-4">Users</h3>
+    <div class="table-responsive">
+      <table class="table table-striped custom-table">
+        <!-- Table Header -->
+        <thead>
+          <tr>
+            <th>UID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <!-- Table Body -->
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user._id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-primary custom-btn"
+                (click)="editUser(user)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-danger custom-btn"
+                (click)="deleteUser(user._id)"
+              >
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Create User Form -->
+    <div *ngIf="!editMode" class="custom-form">
+      <h3>Create New User</h3>
+      <form [formGroup]="userForm" (ngSubmit)="createUser()">
+        <!-- Form Inputs -->
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            class="form-control custom-input"
+            formControlName="username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            class="form-control custom-input"
+            formControlName="password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            class="form-control custom-input"
+            formControlName="email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <input
+            type="text"
+            class="form-control custom-input"
+            formControlName="role"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary custom-btn">
+          Create User
+        </button>
+      </form>
+    </div>
+
+    <!-- Edit User Form -->
+    <div *ngIf="editMode" class="custom-form">
+      <h3>Edit User</h3>
+      <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+        <!-- Form Inputs -->
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            class="form-control custom-input"
+            formControlName="username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">New Password:</label>
+          <input
+            type="password"
+            class="form-control custom-input"
+            formControlName="password"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            class="form-control custom-input"
+            formControlName="email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <input
+            type="text"
+            class="form-control custom-input"
+            formControlName="role"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary custom-btn">
+          Update User
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary ml-2 custom-btn"
+          (click)="cancelEdit()"
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- App CRUD -->
+<div *ngIf="showAppCrud">
+  <!-- Apps Table -->
+  <h3 class="mt-4">Applications</h3>
+  <table class="table table-striped custom-table">
+    <!-- Table Header -->
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Version</th>
+        <th>Genre</th>
+        <th>Visibility</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <!-- Table Body -->
+    <tbody>
+      <tr *ngFor="let app of applications">
+        <td>{{ app.name }}</td>
+        <td>{{ app.description }}</td>
+        <td>{{ app.version }}</td>
+        <td>{{ app.genre }}</td>
+        <td>{{ app.visibility }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary custom-btn"
+            (click)="editApp(app)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-sm btn-danger custom-btn"
+            (click)="deleteApplication(app._id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Create App Form -->
+  <div *ngIf="!editMode" class="custom-form">
+    <h3>Create New App</h3>
+    <form [formGroup]="appForm" (ngSubmit)="createApplication()">
+      <!-- Form Inputs -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          class="form-control custom-input"
+          formControlName="name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input
+          type="text"
+          class="form-control custom-input"
+          formControlName="description"
+          required
+        />
+        <div class="form-group">
+          <label for="version">Version:</label>
+          <input
+            type="text"
+            class="form-control custom-input"
+            formControlName="version"
+            required
+          />
+          <div class="form-group">
+            <label for="genre">Genre:</label>
+            <input
+              type="text"
+              class="form-control custom-input"
+              formControlName="genre"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="visibility">Visibility:</label>
+        <select
+          class="form-control custom-input"
+          formControlName="visibility"
+          required
+        >
+          <option value="true">Public</option>
+          <option value="false">Private</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary custom-btn">
+        Create App
+      </button>
+    </form>
+  </div>
+
+  <!-- Edit App Form -->
+  <div *ngIf="editMode" class="custom-form">
+    <h3>Edit App</h3>
+    <form [formGroup]="appForm" (ngSubmit)="updateApp()">
+      <!-- Form Inputs -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          class="form-control custom-input"
+          formControlName="name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input
+          type="text"
+          class="form-control custom-input"
+          formControlName="description"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="version">Version:</label>
+        <input
+          type="text"
+          class="form-control custom-input"
+          formControlName="version"
+          required
+        />
+        <div class="form-group">
+          <label for="genre">Genre:</label>
+          <input
+            type="text"
+            class="form-control custom-input"
+            formControlName="genre"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="visibility">Visibility:</label>
+        <select
+          class="form-control custom-input"
+          formControlName="visibility"
+          required
+        >
+          <option value="true">Public</option>
+          <option value="false">Private</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary custom-btn">
+        Update App
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 custom-btn"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+    </form>
+  </div>
+</div>
+<button class="btn btn-danger custom-logout-btn" (click)="logout()">
+  Logout
+</button>

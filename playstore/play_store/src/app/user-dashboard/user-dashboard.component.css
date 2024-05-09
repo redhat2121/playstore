@@ -1,0 +1,189 @@
+/* Main content area */
+.col-md-12 {
+  padding: 20px;
+}
+
+/* CSS for logout button */
+.logout-btn-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999; /* Ensure it's above other content */
+}
+
+/* Keyframes for glowing effect */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(0, 0, 255, 0.7);
+  }
+}
+
+/* Apply the animation */
+.logout-btn-container button {
+  animation: glow 2s infinite alternate; /* Alternate the animation direction */
+}
+
+/* User Dashboard heading */
+.dashboard-heading {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* Search and filter section */
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  margin-bottom: 10px;
+}
+
+/* Filter buttons */
+.filter-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Display applications */
+.applications-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Application card */
+.application-card {
+  flex: 1 0 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
+}
+
+.application-card .card-body {
+  padding: 20px;
+}
+
+.selected-application .card {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.selected-application .card-body {
+  padding: 20px;
+}
+
+.selected-application .card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.selected-application .card-text {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.selected-application .form-control {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.selected-application .form-select {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.selected-application .btn {
+  width: 100%;
+}
+
+.selected-application .comment-section {
+  margin-bottom: 20px;
+}
+
+.selected-application .actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selected-application .mt-3 {
+  margin-top: 20px;
+}
+
+.selected-application .mt-4 {
+  margin-top: 30px;
+}
+
+.selected-application .card-body {
+  border-radius: 10px;
+}
+
+.selected-application .btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.selected-application .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.selected-application .btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border-color: #6c757d;
+}
+
+.selected-application .btn-secondary:hover {
+  background-color: #5a6268;
+  color: #fff;
+  border-color: #545b62;
+}
+
+/* Buttons for comments, ratings, and install */
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+}
+
+/* Reviews container */
+.reviews-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 20px;
+}
+
+/* Review card */
+.review-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Review header */
+.review-header {
+  margin-bottom: 10px;
+}
+
+/* Review body */
+.review-body {
+  margin-bottom: 10px;
+}
+
+/* Review text */
+.review-text {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Review footer */
+.review-footer {
+  display: flex;
+  justify-content: flex-end;
+}

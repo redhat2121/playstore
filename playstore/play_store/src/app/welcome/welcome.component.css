@@ -1,0 +1,78 @@
+/* Container Styles */
+.container {
+  background-color: #f5f5f5;
+  padding: 50px 0;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  width: 100vw; 
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box; 
+}
+
+/* Heading Styles */
+.display-4 {
+  color: #4a4a4a;
+  animation: fade-in 2s;
+}
+
+/* Lead Styles */
+.lead {
+  color: #7a7a7a;
+  animation: slide-in 2s;
+}
+
+/* Keyframe Animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Footer Styles */
+.footer {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #f8f9fa;
+  position: relative;
+  bottom: 0;
+}
+
+/* Hover Effect for Learn More Button */
+.btn-light {
+  transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+  background-color: #17a2b8;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0px 5px 15px rgba(23, 162, 184, 0.4);
+}
+
+/* Image Styles */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.img-fluid:hover {
+  transform: scale(1.1);
+}

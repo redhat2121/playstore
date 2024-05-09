@@ -1,0 +1,20 @@
+.navbar-nav .nav-link {
+    position: relative; /* Required for pseudo-element positioning */
+  }
+  
+  .navbar-nav .nav-link::before {
+    content: ''; /* Create a pseudo-element */
+    position: absolute;
+    bottom: -2px; /* Position it below the link */
+    left: 0;
+    width: 100%;
+    height: 2px; /* Height of the underline */
+    background-color: #ffffff; /* Color of the underline */
+    transform: scaleX(0); /* Initially, hide the underline */
+    transition: transform 0.3s ease-in-out; /* Smooth transition effect */
+  }
+  
+  .navbar-nav .nav-link:hover::before {
+    transform: scaleX(1); /* Expand the underline on hover */
+  }
+  
